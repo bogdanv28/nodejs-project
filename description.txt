@@ -1,0 +1,1 @@
+Node.JS project with express and mongoDB(& mongoose). Simple online shop starting project. 
