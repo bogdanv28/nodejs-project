@@ -36,7 +36,7 @@ app.use(clientRoutes);
 
 app.use(errorController.get404);
 
-mongoose.connect('mongodb+srv://bogdan:mongo123@cluster0.yvhgw.mongodb.net/<shop>?retryWrites=true&w=majority')
+mongoose.connect('mongodb+srv://bogdan:<PASS>@cluster0.yvhgw.mongodb.net/<shop>?retryWrites=true&w=majority')
   .then((result) => {
     User.findOne().then(user => {
       if (!user) {
