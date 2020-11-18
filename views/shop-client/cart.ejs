@@ -1,0 +1,47 @@
+<%- include('../includes/head.ejs') %>
+</head>
+</head>
+
+<body>
+  <%- include('../includes/navigation-client.ejs') %>
+  <main>
+
+     <% if(products.length > 0){ %>
+      <ul>
+        <% products.forEach(p => { %>
+          <li>
+            <p><%= p.productId.title %> 
+              <img src="<%= p.productId.imageURL %>" style="width: 40px; height: 30px;">   
+              <form action="/cart-updateQuantity" method="POST">
+                - Quantity: 
+                <input type="number" id="quantity" name="quantity" min="1" max="20" value="<%= p.quantity %>">
+                <input type="hidden" value="<%= p.productId._id %>" name="productId">
+              <button class="btn" type="submit">Update Quantity</button>   
+              | price: <%= +p.productId.price*p.quantity%> $
+            </p>
+          </form>
+
+            <form action="/cart-delete-item" method="POST">
+              <input type="hidden" value="<%= p.productId._id %>" name="productId">
+            <button class="btn" type="submit">Remove item from cart</button>
+            </form>
+          </li>
+          <hr style="width: 450px; margin-left: 0;">
+          <% }); %> 
+      </ul>
+      <div><% let tp=0;  products.forEach(p => tp += +(p.productId.price)*(+p.quantity)) %></div>
+      <h3>Total price: <%= tp %> $</h3> 
+      
+      <form action="/orders" method="POST">
+        <h4>Delivery address:</h4>
+      <label for="city">City</label><br> <textarea name="city" id="city" cols="15" rows="1" required></textarea><br>
+      <label for="address">Address</label><br> <textarea name="address" id="address" cols="40" rows="2" required></textarea>
+      <br><br>
+        <button type="submit" class="btn" >Order</button>
+      </form>
+        <% } else { %>
+          <h2>Cart is empty.</h2>
+          <% } %>
+  </main>
+</body>
+</html>

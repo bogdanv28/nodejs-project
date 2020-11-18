@@ -1,0 +1,60 @@
+<%- include('../includes/head.ejs') %>
+</head>
+</head>
+
+<body>
+  <%- include('../includes/navigation-admin.ejs') %>
+  <main>
+    <h1>My Products</h1>
+    <p>List of all the products...</p>
+    <% if(prods.length > 0) { %>
+      <% prods.reverse(); %>
+    <div class="grid-container">
+      <% for(let product of prods) { %>
+      <div class="div-item">
+        <article class="card product-item">
+          <header class="card__header">
+            <h1 class="product__title"><%= product.title %></h1>
+          </header>
+          <div class="card__image">
+            <img src="<%= product.imageURL %>" alt="<%= product.title %>">
+          </div>
+          <div class="card__content">
+            <h3 class="product__price">Price: <%= product.price %> $</h3>
+            <p class="product__description" ><% if (product.description.length < 30){ %>
+            <%= product.description  %>
+            <% } else {  %>
+              <%= product.description.substring(0, 30) + "..."  %>
+              <% } %>
+            </p>
+          </div>
+          <div class="card__actions">
+            <button onclick="document.location='/admin/edit-product/<%= product._id %>?edit=true'" class="btn">Edit</button>
+            <form action="/admin/delete-product" method="POST">
+              <input type="hidden" value="<%= product._id %>" name="productId">
+              <button class="btn" type="submit">Delete</button>
+          </form>
+        
+          </div>
+        </article>
+      </div>
+      <% } %>
+    </div>
+    <% } else {%>
+    <h2>No Products</h2>
+    <% } %>
+  </main>
+  <script>
+    function ellips (str) {
+    if (str.length > 10) {
+        return (str.substring(0, 10) + "...");
+    }
+    else {
+        return str;
+    }
+}
+  </script>
+</body>
+
+</html>
+    
